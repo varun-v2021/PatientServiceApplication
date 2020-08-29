@@ -102,8 +102,9 @@
 			$('.input-group.date').datepicker({
 				autoclose : true,
 				todayHighlight : true,
+				daysOfWeekDisabled : [ 0 ],
 				weekStart : 1,
-				daysOfWeekDisabled : [ 0 ]
+				startDate : new Date()
 			});
 
 			$(document)

@@ -47,20 +47,14 @@ public class ServiceHandler implements ProcessHandler {
 
 	@Override
 	public List<String> computeFreeTimeSlots(int dayId, String patientSelectedDate) {
-		System.out.println("Date for appointment by customer  - " + stringUtils.formatString(patientSelectedDate));
 		List<WorkingHours> workingHours = workingHoursService.get();
 		List<TimeSlot> timeSlotsForDay = timeSlotService.findByIdSlots(dayId);
-		// List<Doctor> doctors = doctorService.get();
 		List<Doctor> doctors = doctorService.findBySelectedDate(stringUtils.formatString(patientSelectedDate));
 		List<String> availableSlots = new ArrayList<>();
 		List<String> busySlots = new ArrayList<>();
 		List<String> workingHoursStr = new ArrayList<>();
 		if (doctors.size() > 0) {
-			System.out.println("CHECKPOINT 0");
 			for (Doctor doctor : doctors) {
-				System.out.println(
-						"Iterating through doctor - " + " " + doctor.getSelectedDate().toString().split(" ")[0]);
-				System.out.println("Patient selected date - " + stringUtils.formatString(patientSelectedDate));
 				if (doctor.getSelectedDate().toString().split(" ")[0]
 						.equals(stringUtils.formatString(patientSelectedDate))) {
 					System.out.println("Already Booked - " + doctor.getSelectedTimeSlot());
@@ -68,15 +62,9 @@ public class ServiceHandler implements ProcessHandler {
 				}
 			}
 
-			for(TimeSlot ts : timeSlotsForDay) {
-				System.out.println("CHECKPOINT 1");
-				System.out.println("----> " + ts.getSlot());
+			for (TimeSlot ts : timeSlotsForDay) {
 				workingHoursStr.add(ts.getSlot());
 			}
-			
-			/*for (WorkingHours wh : workingHours) {
-				workingHoursStr.add(wh.getSlot());
-			}*/
 
 			List<String> union = new ArrayList(workingHoursStr);
 			union.addAll(busySlots);
@@ -86,25 +74,20 @@ public class ServiceHandler implements ProcessHandler {
 			symmetricDifference.removeAll(intersection);
 			availableSlots = new ArrayList(symmetricDifference);
 
-		} else if(doctors.size() == 0 && dayId == 6) {
-			System.out.println("CHECKPOINT 2");
-			//handling case for saturday
-			/*for(TimeSlot ts : timeSlotsForDay) {
-				availableSlots.add(ts.getSlot());
-			}*/
-			
+		} else if (doctors.size() == 0 && dayId == 6) {
+
 			List<Patient> patients = patientService.findBySelectedDate(stringUtils.formatString(patientSelectedDate));
-			
-			for(Patient patient : patients) {
+
+			for (Patient patient : patients) {
 				System.out.println("Patient booked at " + patient.getSelectedTimeSlot());
 				busySlots.add(patient.getSelectedTimeSlot());
 			}
-			
-			for(TimeSlot ts : timeSlotsForDay) {
+
+			for (TimeSlot ts : timeSlotsForDay) {
 				System.out.println("Adding timeslot for the day " + ts.getSlot());
 				workingHoursStr.add(ts.getSlot());
 			}
-			
+
 			List<String> union = new ArrayList(workingHoursStr);
 			union.addAll(busySlots);
 			List<String> intersection = new ArrayList(workingHoursStr);
@@ -112,9 +95,8 @@ public class ServiceHandler implements ProcessHandler {
 			List<Integer> symmetricDifference = new ArrayList(union);
 			symmetricDifference.removeAll(intersection);
 			availableSlots = new ArrayList(symmetricDifference);
-			
+
 		} else {
-			System.out.println("CHECKPOINT 3");
 			for (WorkingHours wh : workingHours) {
 				availableSlots.add(wh.getSlot());
 			}

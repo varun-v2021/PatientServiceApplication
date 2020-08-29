@@ -39,12 +39,6 @@ public class PatientController {
 	@Value("${spring.application.name}")
 	String appName;
 
-	/*@PostMapping("/patient")
-	public Patient save(@RequestBody Patient patient) {
-		patientService.save(patient);
-		return patient;
-	}*/
-
 	@GetMapping("/patients")
 	public ResponseEntity<List<Patient>> getPatients() {
 		List<Patient> patients = patientService.get();
