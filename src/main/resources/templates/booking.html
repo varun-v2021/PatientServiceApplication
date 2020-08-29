@@ -46,11 +46,11 @@
 			<table>
 				<tr>
 					<td><label for="doctor-selected">Doctor Selected:</label></td>
-					<td><h4 th:text="${doctor.name}" th:object="${doctor_select}"></h4></td>
+					<td><h4 th:text="${doctor.name}" th:object="${doctor_select}" ></h4></td>
 				</tr>
 				<tr>
 					<td><label for="patient-name">Patient Name</label></td>
-					<td><input type="text" name="name"></input></td>
+					<td><input type="text" name="name" required="required"></input></td>
 				</tr>
 				<tr>
 					<td><label for="email">Email</label></td>
