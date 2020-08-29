@@ -9,7 +9,7 @@ spring:
       username: user
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/testdb1?user=root&password=admin
+    url: jdbc:mysql://localhost:3306/<db name>?user=<username>&password=<password>
     initialization-mode: always
   jpa:
     hibernate.ddl-auto: update
