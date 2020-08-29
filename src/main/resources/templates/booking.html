@@ -151,6 +151,7 @@
 																									+ response[i]
 																									+ "</option>");
 																		}
+																		$(":submit").removeAttr("disabled");
 																	} else {
 																		$(
 																				"#selectedSlot")
@@ -158,9 +159,7 @@
 																						"<option value='"+response[i]+"'>"
 																								+ "Not Available"
 																								+ "</option>");
-																		$('button[type=submit]').click(function() {
-																		    $(this).prop('disabled', true);
-																		  });
+																		$(":submit").attr("disabled", true);
 																	}
 																}
 															});

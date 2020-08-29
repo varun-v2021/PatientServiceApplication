@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.online.appointment.model.Doctor;
+import com.online.appointment.model.Patient;
 import com.online.appointment.model.TimeSlot;
 import com.online.appointment.model.WorkingHours;
 import com.online.appointment.service.DoctorService;
@@ -21,8 +22,8 @@ public class ServiceHandler implements ProcessHandler {
 	@Autowired
 	private DoctorService doctorService;
 
-	// @Autowired
-	// private PatientService patientService;
+	@Autowired
+	private PatientService patientService;
 
 	@Autowired
 	private WorkingHoursService workingHoursService;
@@ -55,6 +56,7 @@ public class ServiceHandler implements ProcessHandler {
 		List<String> busySlots = new ArrayList<>();
 		List<String> workingHoursStr = new ArrayList<>();
 		if (doctors.size() > 0) {
+			System.out.println("CHECKPOINT 0");
 			for (Doctor doctor : doctors) {
 				System.out.println(
 						"Iterating through doctor - " + " " + doctor.getSelectedDate().toString().split(" ")[0]);
@@ -67,6 +69,7 @@ public class ServiceHandler implements ProcessHandler {
 			}
 
 			for(TimeSlot ts : timeSlotsForDay) {
+				System.out.println("CHECKPOINT 1");
 				System.out.println("----> " + ts.getSlot());
 				workingHoursStr.add(ts.getSlot());
 			}
@@ -84,11 +87,34 @@ public class ServiceHandler implements ProcessHandler {
 			availableSlots = new ArrayList(symmetricDifference);
 
 		} else if(doctors.size() == 0 && dayId == 6) {
+			System.out.println("CHECKPOINT 2");
 			//handling case for saturday
-			for(TimeSlot ts : timeSlotsForDay) {
+			/*for(TimeSlot ts : timeSlotsForDay) {
 				availableSlots.add(ts.getSlot());
+			}*/
+			
+			List<Patient> patients = patientService.findBySelectedDate(stringUtils.formatString(patientSelectedDate));
+			
+			for(Patient patient : patients) {
+				System.out.println("Patient booked at " + patient.getSelectedTimeSlot());
+				busySlots.add(patient.getSelectedTimeSlot());
 			}
+			
+			for(TimeSlot ts : timeSlotsForDay) {
+				System.out.println("Adding timeslot for the day " + ts.getSlot());
+				workingHoursStr.add(ts.getSlot());
+			}
+			
+			List<String> union = new ArrayList(workingHoursStr);
+			union.addAll(busySlots);
+			List<String> intersection = new ArrayList(workingHoursStr);
+			intersection.retainAll(busySlots);
+			List<Integer> symmetricDifference = new ArrayList(union);
+			symmetricDifference.removeAll(intersection);
+			availableSlots = new ArrayList(symmetricDifference);
+			
 		} else {
+			System.out.println("CHECKPOINT 3");
 			for (WorkingHours wh : workingHours) {
 				availableSlots.add(wh.getSlot());
 			}

@@ -29,7 +29,7 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 	//@Cacheable("freeSlots")
 	@CacheEvict
 	public List<TimeSlot> findByIdSlots(int id){
-		return (List<TimeSlot>) timeSlotRepository.findByIdSlots(id);
+		return (List<TimeSlot>) timeSlotRepository.findSlotsByScheduleId(id);
 	}
 	public List<TimeSlot> get() {
 		return timeSlotRepository.findAll();

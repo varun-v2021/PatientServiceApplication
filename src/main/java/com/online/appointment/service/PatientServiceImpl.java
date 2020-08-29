@@ -84,9 +84,16 @@ public class PatientServiceImpl implements PatientService {
 		}
 		
 		TimeSlot timeSlot = new TimeSlot();
-		timeSlot.setSlot(patient.getTimeSlot().getSlot());
+		List<TimeSlot> timeSlots = timeSlotRepository.findSlotsByScheduleId(filteredSchedules.get(0).getId());
+		for(TimeSlot ts : timeSlots) {
+			if(ts.getSlot().equals(patient.getTimeSlot().getSlot()))
+				timeSlot = ts;
+		}
+		
+		
+		/*timeSlot.setSlot(patient.getTimeSlot().getSlot());
 		timeSlot.setSchedule(filteredSchedules.get(0));
-		timeSlotRepository.save(timeSlot);
+		timeSlotRepository.save(timeSlot);*/
 		
 		//TODO : remove selected date and timeslot for doctor
 		//Doctor doctor = new Doctor();
@@ -107,6 +114,11 @@ public class PatientServiceImpl implements PatientService {
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Patient> findBySelectedDate(String seldate) {
+		return (List<Patient>) patientRepository.findBySelectedDate(seldate);
 	}
 	
 	/*public List<String> getAvailableTimeSlots(){
