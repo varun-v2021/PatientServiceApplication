@@ -1,27 +1,20 @@
 package com.online.appointment.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
-import com.online.appointment.dao.DoctorDao;
-import com.online.appointment.dao.PatientDao;
-import com.online.appointment.model.Doctor;
 import com.online.appointment.model.Patient;
 import com.online.appointment.model.Schedule;
 import com.online.appointment.model.TimeSlot;
 import com.online.appointment.repository.DoctorRepository;
 import com.online.appointment.repository.PatientRepository;
 import com.online.appointment.repository.ScheduleRepository;
-//import com.online.appointment.repository.PatientRepository;
 import com.online.appointment.repository.TimeSlotRepository;
 
 @Service
@@ -42,7 +35,6 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<Patient> get() {
-		// TODO Auto-generated method stub
 		return patientRepository.findAll();
 	}
 

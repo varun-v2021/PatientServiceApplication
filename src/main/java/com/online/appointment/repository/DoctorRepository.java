@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.online.appointment.model.Doctor;
-import com.online.appointment.model.TimeSlot;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {

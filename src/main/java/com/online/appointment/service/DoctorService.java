@@ -9,12 +9,6 @@ import com.online.appointment.model.Doctor;
 @Component
 public interface DoctorService {
 	
-	/*public void savePatient(Patient student);
-	
-	public Patient findById(int id);
-	
-	public List<Patient> findAll();*/
-	
 	List<Doctor> get();
 
 	Doctor get(int id);

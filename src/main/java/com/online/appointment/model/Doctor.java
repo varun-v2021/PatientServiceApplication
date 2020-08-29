@@ -1,6 +1,5 @@
 package com.online.appointment.model;
 
-//import java.sql.Date;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +24,6 @@ public class Doctor {
 	@OneToMany(mappedBy="doctor", cascade = CascadeType.ALL)
 	List<Patient> patients;
 	@Column
-	//@Temporal(TemporalType.DATE)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
 	Date selectedDate;
 	@Column

@@ -8,13 +8,7 @@ import com.online.appointment.model.TimeSlot;
 
 @Component
 public interface PatientService {
-	
-	/*public void savePatient(Patient student);
-	
-	public Patient findById(int id);
-	
-	public List<Patient> findAll();*/
-	
+		
 	List<Patient> get();
 
 	Patient get(int id);

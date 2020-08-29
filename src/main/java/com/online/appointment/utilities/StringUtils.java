@@ -1,7 +1,5 @@
 package com.online.appointment.utilities;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Component;
 
 @Component

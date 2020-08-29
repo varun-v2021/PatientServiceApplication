@@ -1,15 +1,11 @@
 package com.online.appointment.utilities;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.apache.http.ParseException;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import com.online.appointment.dto.DoctorDTO;
 import com.online.appointment.dto.PatientDTO;
