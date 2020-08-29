@@ -56,19 +56,19 @@
 					<td><label for="email">Email</label></td>
 					<td><input type="text" name="email"
 						placeholder="sample@email.com"
-						pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"></input></td>
+						pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" required="required"></input></td>
 				</tr>
 				<tr>
 					<td><label for="phone">Phone</label></td>
 					<td><input type="tel" id="phone" name="phone"
-						placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"></input></td>
+						placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="required"></input></td>
 				</tr>
 				<tr>
 					<td><label for="apptdate">Appointment Date</label></td>
 					<td>
 						<div class="input-group date" id="dp3">
 							<input type="text" class="form-control" id="apptdate"
-								name="apptdate" />
+								name="apptdate" required="required"/>
 							<div class="input-group-append">
 								<span class="input-group-text"><i
 									class="far fa-calendar-alt"></i></span>
