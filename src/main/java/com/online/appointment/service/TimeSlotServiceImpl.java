@@ -26,7 +26,6 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 	TimeSlotRepository timeSlotRepository;
 	
 	@Override
-	//@Cacheable("freeSlots")
 	@CacheEvict
 	public List<TimeSlot> findByIdSlots(int id){
 		return (List<TimeSlot>) timeSlotRepository.findSlotsByScheduleId(id);

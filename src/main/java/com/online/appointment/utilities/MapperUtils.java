@@ -35,15 +35,6 @@ public class MapperUtils {
 		Optional<String> day = workingDays.entrySet().stream()
 				.filter(e -> patientDto.getApptdate().getDay() == e.getKey()).map(Map.Entry::getValue).findFirst();
 
-		System.out.println("Patient Name: " + patientDto.getName());
-		System.out.println("Patient Email: " + patientDto.getEmail());
-		System.out.println("Patient Phone: " + patientDto.getPhone());
-		System.out.println("Appointment Time: " + patientDto.getApptdate().getTime());
-		System.out.println("Selected Slot : " + patientDto.getSelectedSlot());
-		// sunday is 0, monday 1 ...
-		System.out.println("Appointment Date: " + patientDto.getApptdate().getDay());
-		System.out.println("Appointment Day: " + day.get());
-
 		Schedule schedule = new Schedule();
 		schedule.setId(patientDto.getApptdate().getDay());
 		schedule.setDay(day.get());
@@ -54,10 +45,6 @@ public class MapperUtils {
 		patient.setSelectedDate(patientDto.getApptdate());
 
 		Doctor doctor = new Doctor();
-		// TODO: To dynamically populate id
-		System.out.println("<<<<<< patientDto.getSelectedSlot() " + patientDto.getSelectedSlot());
-		System.out.println("<<<<<< patientDto.getApptdate() " + patientDto.getApptdate());
-		//doctor.setId(1);
 		doctor.setName(doctorDto.getName());
 		doctor.setSelectedDate(patientDto.getApptdate());
 		doctor.setSelectedTimeSlot(patientDto.getSelectedSlot());
@@ -70,15 +57,6 @@ public class MapperUtils {
 		patient.setTimeSlot(timeSlot);
 		patient.setSelectedTimeSlot(patientDto.getSelectedSlot());
 
-		/*
-		 * post.setSubmissionDate(
-		 * postDto.getSubmissionDateConverted(userService.getCurrentUser().getPreference
-		 * ().getTimezone()));
-		 * 
-		 * if (postDto.getId() != null) { Post oldPost =
-		 * postService.getPostById(postDto.getId());
-		 * post.setRedditID(oldPost.getRedditID()); post.setSent(oldPost.isSent()); }
-		 */
 		return patient;
 	}
 }

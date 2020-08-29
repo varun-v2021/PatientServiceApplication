@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringUtils {
 	public String formatString(String date) {
-		System.out.println("Obtained date " + date);
+		System.out.println("Date to format " + date);
 		StringBuilder sb = new StringBuilder();
 		String[] dateSplit = date.split("/");
 		sb.append(dateSplit[2]);

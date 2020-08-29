@@ -24,7 +24,6 @@ public class WorkingHoursServiceImpl implements WorkingHoursService {
 	WorkingHoursRepository workingHoursRepository;
 
 	@Override
-	//@Cacheable("freeSlots")
 	@CacheEvict
 	public List<WorkingHours> get() {
 		return workingHoursRepository.findAll();
