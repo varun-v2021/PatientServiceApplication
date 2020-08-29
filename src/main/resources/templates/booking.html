@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+#target {
+	margin: 2em;
+}
+</style>
+<meta charset="UTF-8" />
+<title>Appointment Booking</title>
+
+<link th:rel="stylesheet"
+	th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link th:rel="stylesheet"
+	th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link th:rel="stylesheet"
+	th:href="@{webjars/font-awesome/5.11.2/css/all.css} " />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Appointment Details</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link" href="#">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Services</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<form action="/appointment/save" method="post" th:object="${patient}">
+			<table>
+				<tr>
+					<td><label for="doctor-selected">Doctor Selected:</label></td>
+					<td><h4 th:text="${doctor.name}" th:object="${doctor_select}"></h4></td>
+				</tr>
+				<tr>
+					<td><label for="patient-name">Patient Name</label></td>
+					<td><input type="text" name="name"></input></td>
+				</tr>
+				<tr>
+					<td><label for="email">Email</label></td>
+					<td><input type="text" name="email"
+						placeholder="sample@email.com"
+						pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"></input></td>
+				</tr>
+				<tr>
+					<td><label for="phone">Phone</label></td>
+					<td><input type="tel" id="phone" name="phone"
+						placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"></input></td>
+				</tr>
+				<tr>
+					<td><label for="apptdate">Appointment Date</label></td>
+					<td>
+						<div class="input-group date" id="dp3">
+							<input type="text" class="form-control" id="apptdate"
+								name="apptdate" />
+							<div class="input-group-append">
+								<span class="input-group-text"><i
+									class="far fa-calendar-alt"></i></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="name">Available Slots</label></td>
+					<td><select id="selectedSlot" name="selectedSlot">
+							<option value="0">- Select -</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<button class="btn btn-primary" type="submit">Submit form</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script
+			th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+		<script>
+			$('.input-group.date').datepicker({
+				autoclose : true,
+				todayHighlight : true,
+				weekStart : 1,
+				daysOfWeekDisabled : [ 0 ]
+			});
+
+			$(document)
+					.ready(
+							function() {
+								$('#dp3').datepicker().on('changeDate',
+										function(ev) {
+											$('#apptdate').change();
+										});
+								$('#apptdate')
+										.change(
+												function() {
+													$('#stdout').append(
+															$('#apptdate')
+																	.val()
+																	+ '\n');
+													console.log($('#apptdate')
+															.val());
+													var day = new Date($(
+															'#apptdate').val())
+															.getDay();
+													var seldate = ($('#apptdate')
+															.val());
+													$
+															.ajax({
+																url : '/appointment/availableSlots?dayId='
+																		+ day
+																		+ '&seldate='
+																		+ seldate,
+																type : 'get',
+																data : '',
+																dataType : 'json',
+																success : function(
+																		response) {
+																	var len = response.length;
+																	$(
+																			"#selectedSlot")
+																			.empty();
+																	if (len > 0) {
+																		for (var i = 0; i < len; i++) {
+																			$(
+																					"#selectedSlot")
+																					.append(
+																							"<option value='"+response[i]+"'>"
+																									+ response[i]
+																									+ "</option>");
+																		}
+																	} else {
+																		$(
+																				"#selectedSlot")
+																				.append(
+																						"<option value='"+response[i]+"'>"
+																								+ "Not Available"
+																								+ "</option>");
+																		$('button[type=submit]').click(function() {
+																		    $(this).prop('disabled', true);
+																		  });
+																	}
+																}
+															});
+												});
+							});
+		</script>
+</body>
+</html>

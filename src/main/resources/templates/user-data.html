@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Appointment Confirmation</title>
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Appointment Confirmation</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link" href="#">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Services</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<table>
+		<tr>
+			<td>
+				<div class="container">
+				<h4 th:text="${patient.name}"></h4>
+				<h4 th:text="${patient.email}"></h4>
+					<h2 class="mt-5">
+						Your Appointment Is On: <strong
+							th:text="${#dates.format(patient.apptdate, 'dd-MM-yyyy')}"></strong>
+						At: <strong th:text="${patient.selectedSlot}"></strong>
+					</h2>
+				</div>
+				<a th:href="@{/}" class="btn btn-primary">Go back</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
